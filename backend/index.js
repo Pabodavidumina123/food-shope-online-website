@@ -1,6 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import userrouter from './router/userRouter.js';
+import jwt from "jsonwebtoken";
 
 const app = express();
 
@@ -20,6 +21,25 @@ mongoose.connect(mongoURI)
 
 // Routes
 app.use("/user", userrouter);
+
+app.use((req,res,next)=>{
+    console.log("request recived");
+
+    const token=req.headers("Authorization");
+
+    if(token!=null){
+
+        const token=header.replace("Bearer ","");
+    }
+
+    jwt.verify(token,"i-computer 500!",(err,decode)=>{
+
+        console.log(decode);
+        req.user=decode;
+    })
+
+    next();
+})
 
 // Start server
 app.listen(3000, () => {

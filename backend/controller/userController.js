@@ -75,7 +75,11 @@ export function loginUser(req, res) {
 
                     res.status(200).json({token:token});
 
-                res.status(200).json({ message: "Login successful" });
+                res.status(200).json({ 
+                    message: "Login successful" ,
+                    token: token
+
+                });
             } else {
                 res.status(401).json({ error: "Invalid password" });
             }
