@@ -30,7 +30,7 @@ export function createUser(req, res) {
         .then(() => {
             res.status(201).json({ message: "User Created Successfully" });
         })
-        .catch((err) => {
+        .catch((error) => {
             res.status(500).json({ error: "Error creating user" });
         });
 }
@@ -72,8 +72,6 @@ export function loginUser(req,res) {
 
                     })
 
-
-               
 
                 res.status(200).json({ 
                     message: "Login successful" ,
