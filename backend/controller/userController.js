@@ -15,8 +15,8 @@ export function getUser(req, res) {
 }
 
 // Create new user
-export function createUser(req, res) {
-
+export async function createUser(req, res) {
+try{
     const hashPassword = bcrypt.hashSync(req.body.password, 10);
 
     const newUser = new User({
@@ -26,13 +26,15 @@ export function createUser(req, res) {
         password: hashPassword
     });
 
-    newUser.save()
-        .then(() => {
-            res.status(201).json({ message: "User Created Successfully" });
-        })
-        .catch((error) => {
-            res.status(500).json({ error: "Error creating user" });
-        });
+     await newUser.save()
+
+     return res.status(200).json({message:"User Created Successfully"});
+    
+    } catch (error) {
+    return res.status(500).json({
+      message: "User creation failed",
+    });
+  }
 }
 
 // Login user
@@ -88,3 +90,5 @@ export function loginUser(req,res) {
             res.status(500).json({ error: "Login error" });
         });
 }
+
+

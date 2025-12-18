@@ -37,9 +37,9 @@ app.listen(3000, () => {
 
 
 
-const timeleft=20;
-
-const mypromise=new Promise((resolve,reject)=>{
+const timeleft=50;
+function finddb(){
+return new Promise((resolve,reject)=>{
     setTimeout(()=>{
         if(timeleft>30){
             console.log("Starting soon");
@@ -50,13 +50,15 @@ const mypromise=new Promise((resolve,reject)=>{
         }else{
             console.log("Taking longer than expected");
         }
-    },500)
+    },5000)
 })
+}
+const result=await finddb();
+console.log(result);
 
-
-mypromise.then((result)=>{
+/*mypromise.then((result)=>{
     console.log(result)
     console.log("Event Started");
 }).catch((error)=>{
     console.log("Error:",error);
-})
+})*/
