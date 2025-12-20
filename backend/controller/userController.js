@@ -3,6 +3,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 
+
 // Get all users
 export function getUser(req, res) {
     User.find()
@@ -91,4 +92,17 @@ export function loginUser(req,res) {
         });
 }
 
+
+export function isAdmin(req){
+
+    if(req.user==null){
+        return false;
+    }
+    if(req.user.role=="admin"){
+        return true;
+    }else{
+        return false;
+    }
+
+}
 

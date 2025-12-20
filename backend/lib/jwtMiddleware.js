@@ -11,7 +11,7 @@ export default function AuthorizationUser(req, res, next) {
             if(decoded==null) {
                  res.status(401).json({ message: "plz loging againg" });
             }else{
-             req.User = decoded;
+             req.user = decoded;
             next();
             }
            

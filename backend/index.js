@@ -2,7 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import userrouter from './router/userRouter.js';
 import AuthorizationUser from './lib/jwtMiddleware.js';
-
+import productRouter from './router/productRouter.js';
 
 
 // MongoDB connection
@@ -23,8 +23,8 @@ app.use(express.json());
 app.use(AuthorizationUser);
 
 // Routes (protected)
-app.use("/user", userrouter);
-
+app.use("/user",userrouter);
+app.use("/product",productRouter)
 
 // Start server
 app.listen(3000, () => {
@@ -37,7 +37,7 @@ app.listen(3000, () => {
 
 
 
-const timeleft=50;
+/* const timeleft=50;
 function finddb(){
 return new Promise((resolve,reject)=>{
     setTimeout(()=>{
@@ -55,7 +55,7 @@ return new Promise((resolve,reject)=>{
 }
 const result=await finddb();
 console.log(result);
-
+ */
 /*mypromise.then((result)=>{
     console.log(result)
     console.log("Event Started");
