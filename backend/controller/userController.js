@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 
 
 
+
 // Get all users
 export function getUser(req, res) {
     User.find()
@@ -90,6 +91,29 @@ export function loginUser(req,res) {
         .catch((err) => {
             res.status(500).json({ error: "Login error" });
         });
+}
+export async function updateUser(req,res){
+    if(!isAdmin(req)){
+        res.status(403).json({error:"Access denied"});
+        return;
+    }
+    try{
+        const userId=req.params.userId;
+        const data={};
+        if(req.body.firstName==null){
+            res.status(400).json({message:"First name is required"});
+            return;
+        }
+        data.firstName=req.body.firstName;
+        data.lastName=req.body.lastName;
+        data.email=req.body.email;
+        data.password=bcrypt.hashSync(req.body.password,10);
+
+        await User.updateOne({userId:userId},data);
+        res.status(200).json({message:"User updated successfully"});
+    }catch(error){
+        res.status(400).json({message:"Error updating user",error:error});
+    }
 }
 
 
